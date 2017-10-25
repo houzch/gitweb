@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<wsdl:definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:tns="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://tempuri.org/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="Invoke">
+        <s:complexType>
+          <s:sequence>
+            <s:element maxOccurs="1" minOccurs="0" name="xml" type="s:string"/>
+            <s:element maxOccurs="1" minOccurs="0" name="Invoketype" type="s:string"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InvokeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element maxOccurs="1" minOccurs="0" name="InvokeResult" type="s:string"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="InvokeSoapIn">
+    <wsdl:part element="tns:Invoke" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="InvokeSoapOut">
+    <wsdl:part element="tns:InvokeResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:portType name="CtripHotelBookingServiceSoap">
+    <wsdl:operation name="Invoke">
+      <wsdl:input message="tns:InvokeSoapIn"/>
+      <wsdl:output message="tns:InvokeSoapOut"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="CtripHotelBookingServiceSoap" type="tns:CtripHotelBookingServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="Invoke">
+      <soap:operation soapAction="http://tempuri.org/Invoke" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="CtripHotelBookingServiceSoap12" type="tns:CtripHotelBookingServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="Invoke">
+      <soap12:operation soapAction="http://tempuri.org/Invoke" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="CtripHotelBookingService">
+    <wsdl:port binding="tns:CtripHotelBookingServiceSoap" name="CtripHotelBookingServiceSoap">
+      <soap:address location="http://localhost:8072/testweb/services/CtripHotelBookingServiceSoap"/>
+    </wsdl:port>
+    <wsdl:port binding="tns:CtripHotelBookingServiceSoap12" name="CtripHotelBookingServiceSoap12">
+      <soap12:address location="http://localhost:8080/CtripHotelBookingService.asmx"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
